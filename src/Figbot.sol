@@ -14,9 +14,11 @@ contract Figbot is ERC721URIStorage, Ownable{
     string constant TOKEN_URI = "ipfs://QmWQLuGKWiho3cR8sEqZQGYfgEUAJrogyGkfC9ts2eQ4LF";
     constructor() ERC721("Figbot", "FBT") {}
 
+    event Withdraw(address _to, uint256 _value);
+
     function mint() public payable {
         require(msg.value >= COST, "Insufficient funds");
-        require(MAX_SUPPLY > _tokenIds.current(), "You can not mint anymore");
+        require(MAX_SUPPLY >= _tokenIds.current(), "You can not mint anymore");
 
         //increment tokenId - started at 0//
         _tokenIds.increment();
@@ -24,6 +26,16 @@ contract Figbot is ERC721URIStorage, Ownable{
         _setTokenURI(_tokenIds.current(), TOKEN_URI);
     }
 
+    function totalSupply() public view returns (uint256) {
+        return _tokenIds.current();
+    }
 
+    function withdrawFunds() external onlyOwner {
+        uint256 balance = address(this).balance;
+        require(balance > 0, "No ether left to withdraw");
+        (bool success, ) = (msg.sender).call{value: balance}("");
+        require(success, "Withdrawal Failed");
+        emit Withdraw(msg.sender, balance);
+    }
 
 }
