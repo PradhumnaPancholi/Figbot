@@ -2,11 +2,10 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "forge-std/Vm.sol";
 import "../src/Figbot.sol";
 
 
-contract ContractTest is Test {
+contract FigbotTest is Test {
 
     Figbot figbot;
     address owner = address(0x1223);
@@ -27,7 +26,7 @@ contract ContractTest is Test {
         // swtich address/account and give it some balance //
         vm.startPrank(alice);
         vm.deal(alice, 1 ether);
-        figbot.mint{value: 0.8 ether}();
+        figbot.mint{value: 0.69 ether}();
         vm.stopPrank();
         assertEq(figbot.balanceOf(alice), 1);
     }
