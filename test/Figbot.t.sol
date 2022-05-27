@@ -2,18 +2,18 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "../src/Figbot.sol";
+import "../src/mocks/FigbotMock.sol";
 
 
 contract FigbotTest is Test {
 
-    Figbot figbot;
+    FigbotMock figbot;
     address owner = address(0x1223);
     address alice = address(0x1889);
     address bob = address(0x1778);
     function setUp() public {
         vm.startPrank(owner);
-        figbot = new Figbot();
+        figbot = new FigbotMock();
         vm.stopPrank(); 
     }
 
@@ -24,13 +24,22 @@ contract FigbotTest is Test {
     // test for a succesfull mint // 
     function testMint() public {
         // swtich address/account and give it some balance //
-        vm.startPrank(alice);
-        vm.deal(alice, 1 ether);
+		vm.startPrank(alice);
+		vm.deal(alice, 1 ether);
         figbot.mint{value: 0.69 ether}();
         vm.stopPrank();
         assertEq(figbot.balanceOf(alice), 1);
-    }
+	}
 
+
+	// test for mint to fail after reaching max supply
+	function testFailMintAfterMaxSupply() public {
+		vm.startPrank(alice);
+		vm.deal(alice, 1 ether);
+		figbot.setTokenIdTOMaxSupply();
+		vm.expectRevert();
+		figbot.mint{value: 0.69 ether}();
+	}
 
     //test for unsuccesfull mint due to insuffucient funds//
     function testFailMint() public {

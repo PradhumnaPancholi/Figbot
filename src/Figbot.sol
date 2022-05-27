@@ -4,10 +4,11 @@ pragma solidity ^0.8.13;
 import "openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 import "openzeppelin-contracts/contracts/utils/Counters.sol";
+
 contract Figbot is ERC721URIStorage, Ownable{
 
     using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+    Counters.Counter public _tokenIds;
 
     uint256 public constant MAX_SUPPLY = 100;
     uint256 public constant COST = 0.69 ether;
@@ -16,9 +17,9 @@ contract Figbot is ERC721URIStorage, Ownable{
 
     event Withdraw(address _to, uint256 _value);
 
-    function mint() public payable {
+    function mint() public virtual payable {
         require(msg.value >= COST, "Insufficient funds");
-        require(MAX_SUPPLY >= _tokenIds.current(), "You can not mint anymore");
+        require(MAX_SUPPLY > _tokenIds.current(), "You can not mint anymore");
 
         //increment tokenId - started at 0//
         _tokenIds.increment();
