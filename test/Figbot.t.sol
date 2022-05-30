@@ -5,8 +5,8 @@ import "forge-std/Test.sol";
 import "../src/mocks/FigbotMock.sol";
 import "forge-std/console.sol";
 
+//tests are using mock contract//
 contract FigbotTest is Test {
-
     FigbotMock figbot;
     address owner = address(0x1223);
     address alice = address(0x1889);
