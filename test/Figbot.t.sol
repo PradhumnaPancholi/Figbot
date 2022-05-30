@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 import "../src/mocks/FigbotMock.sol";
-
+import "forge-std/console.sol";
 
 contract FigbotTest is Test {
 
@@ -35,9 +35,10 @@ contract FigbotTest is Test {
 	// test for mint to fail after reaching max supply
 	function testFailMintAfterMaxSupply() public {
 		vm.startPrank(alice);
+		console.log('alice', alice.balance);
 		vm.deal(alice, 1 ether);
 		figbot.setTokenIdTOMaxSupply();
-		vm.expectRevert();
+		vm.expectRevert(bytes("You can not mint anymore"));
 		figbot.mint{value: 0.69 ether}();
 	}
 
