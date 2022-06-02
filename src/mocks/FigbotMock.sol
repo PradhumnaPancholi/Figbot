@@ -9,21 +9,21 @@ contract FigbotMock is Figbot {
 		
 		//appraoch 1:  fast forward your state variable to the constraint you are testing for //
 		// make sure to call this function in your test before the calling the function to test the constraint
-//		function setTokenIdTOMaxSupply() public {
-//				for(uint256 i = 0; i > MAX_SUPPLY; i++) {
-//						_tokenIds.increment();
-//				}
-//		}
+		function setTokenIdToMaxSupply() public {
+				for(uint256 i = 0; i < MAX_SUPPLY; i++) {
+						_tokenIds.increment();
+				}
+		}
 
 		//approach 2: create a fake state variable, and override the "mint" function //
-		uint256 fakeTokenId = 100;
-  	
-		function mint() public override payable {
-				require(msg.value >= COST, "Insufficient funds");
-				require(MAX_SUPPLY > fakeTokenId, "You can not mint anymore");
-				//increment tokenId - started at 0//
-				_tokenIds.increment();
-				_safeMint(msg.sender, _tokenIds.current());
-				_setTokenURI(_tokenIds.current(), TOKEN_URI);
-		}
+//		uint256 fakeTokenId = 100;
+//  	
+//		function mint() public override payable {
+//				require(msg.value >= COST, "Insufficient funds");
+//				require(MAX_SUPPLY > fakeTokenId, "You can not mint anymore");
+//				//increment tokenId - started at 0//
+//				_tokenIds.increment();
+//				_safeMint(msg.sender, _tokenIds.current());
+//				_setTokenURI(_tokenIds.current(), TOKEN_URI);
+//		}
 }

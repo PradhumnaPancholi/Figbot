@@ -36,6 +36,7 @@ contract FigbotTest is Test {
 		vm.startPrank(alice);
 		console.log('alice', alice.balance);
 		vm.deal(alice, 1 ether);
+		figbot.setTokenIdToMaxSupply();	
 		vm.expectRevert(bytes("You can not mint anymore"));
 		figbot.mint{value: 0.69 ether}();
 	}
