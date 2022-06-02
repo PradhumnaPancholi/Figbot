@@ -10,7 +10,7 @@ contract FigbotMock is Figbot {
 		//appraoch 1:  fast forward your state variable to the constraint you are testing for //
 		// make sure to call this function in your test before the calling the function to test the constraint
 		function setTokenIdToMaxSupply() public {
-				for(uint256 i = 0; i < MAX_SUPPLY; i++) {
+				for(uint256 i = 0; i <= MAX_SUPPLY; i++) {
 						_tokenIds.increment();
 				}
 		}
