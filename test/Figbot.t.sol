@@ -32,11 +32,10 @@ contract FigbotTest is Test {
 
 
 	// test for mint to fail after reaching max supply
-	function testFailMintAfterMaxSupply() public {
+	function testMintAfterMaxSupply() public {
 		vm.startPrank(alice);
 		console.log('alice', alice.balance);
 		vm.deal(alice, 1 ether);
-		figbot.setTokenIdTOMaxSupply();
 		vm.expectRevert(bytes("You can not mint anymore"));
 		figbot.mint{value: 0.69 ether}();
 	}
