@@ -16,6 +16,10 @@ contract FigbotTest is Test {
         vm.stopPrank(); 
     }
 
+    function testBank() public {
+        assertEq(figbot.getName(), "BANK");
+    }
+
     function testMaxSupply() public {
         assertEq(figbot.MAX_SUPPLY(), 100);
     }
@@ -36,7 +40,7 @@ contract FigbotTest is Test {
 		vm.startPrank(alice);
 		console.log('alice', alice.balance);
 		vm.deal(alice, 1 ether);
-		figbot.setTokenIdToMaxSupply();	
+		//figbot.setTokenIdToMaxSupply();	// this is only for approach 1 //
 		vm.expectRevert(bytes("You can not mint anymore"));
 		figbot.mint{value: 0.69 ether}();
 	}
