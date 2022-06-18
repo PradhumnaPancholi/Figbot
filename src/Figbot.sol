@@ -16,7 +16,7 @@ contract Figbot is ERC721URIStorage, Ownable{
     Counters.Counter public _tokenIds;
 
     uint256 public constant MAX_SUPPLY = 100;
-    uint256 public constant COST = 20000000000000000000;
+    uint256 public constant COST = 100000000000000000000; //100 BANK - 100 * 10^18
     string constant TOKEN_URI = "ipfs://QmWQLuGKWiho3cR8sEqZQGYfgEUAJrogyGkfC9ts2eQ4LF";
     constructor() ERC721("Figbot", "FBT") {}
 
