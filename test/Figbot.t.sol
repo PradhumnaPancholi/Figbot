@@ -16,9 +16,9 @@ contract FigbotTest is Test {
         vm.stopPrank(); 
     }
 
-    function testBank() public {
-        assertEq(figbot.getName(), "BANK");
-    }
+//    function testBank() public {
+//        assertEq(figbot.getName(), "BANK");
+//    }
 
     function testMaxSupply() public {
         assertEq(figbot.MAX_SUPPLY(), 100);
